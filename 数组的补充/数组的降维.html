@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+</body>
+<script>
+    //什么是二维数组
+    //数组的元素是一个数组，将其降维到一维数组
+    // var arr = [10, 20, [30, 40, 50], 60];
+    //数组降维:把二维数组降低到一维数组
+    var arr = [[10, 20], [30, 40, 50], [60, 70]];
+
+    //[10,20,30, 40, 50, 60]
+
+    console.log(arr);
+    //使用扩展运算符...
+    var arrNew = [];
+    //遍历二维数组
+    arr.forEach(v => {
+        //console. log(v);
+        if (Array.isArray(v)) {
+            arrNew.push(...v);
+        } else C
+        arrNew.push(v);
+
+    });
+    console.log(arrNew);
+
+</script>
+
+</html>

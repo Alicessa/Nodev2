@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="../HeroStyem/views/dist/js/jquery.js"></script>
+</head>
+
+<body>
+    <button id="btn">点我获取接口中的资源</button>
+
+</body>
+<script>
+    // js的形式是添加script标签然后通过script不会存在跨域问题
+    $(function () {
+
+
+
+        //准备 好一个函数
+        function sb(backData) {
+            //这个backData就接收后端传递过来的数据
+            console.log(backData);
+        }
+        //给按钮设置一个点击事件
+        $('#btn').on('click', function () {
+            //1.动态的创建一个script标签
+            var script1 = documen.createElement('script');
+
+            $(script1).attr(' src', ' http://127.0.0.1: 6666/?callback=sb');
+            //2.把script标签添加到body中使用
+            $('body').append(script1);
+
+        })
+    })
+
+    // jQuery的形式
+    $(function () {
+        //给按钮设置点击事件
+        $('#btn').on('click', function () {
+            $.ajax({
+                url: 'http://127.0.0.1: 6666/all',
+                dataType: 'jsonp',//前提接口本身主持jsonp
+                // data:{
+
+                // },
+                success: function (backData) {
+                    console.log(backData);
+                }
+             });
+   //如果这个访问的接口支持jsonp,那发送ajax请求就可以使用jsonp
+//jQuery使用jsonp，就有一个参数dataType: 'jsonp
+//他的本质(他的原理)也是通过自动创建script标签
+
+        })
+
+    })
+
+
+</script>
+
+</html>

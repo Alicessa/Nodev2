@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <title>登陆页面</title> 
+    <script src="./dist/js/jquery.js"></script>
+   
+   
+    <link rel="stylesheet" href="./dist/css/style.css">
+    <script src="https://cdn.bootcdn.net/ajax/libs/blueimp-md5/2.16.0/js/md5.js"></script>
+</head>
+
+<body>
+    <form action="#"  method="post">
+
+        <div class="dowebok">
+            <div class="container">
+                <div class="left">
+                    <div class="login">登陆</div>
+                    <div class="eula">欢迎光临，请输入您的用户名和密码以登录！</div>
+                </div>
+                <div class="right">
+                    <svg viewBox="0 0 320 300">
+                        <defs>
+                            <linearGradient inkscape:collect="always" id="linearGradient" x1="13" y1="193.49992"
+                                x2="307" y2="193.49992" gradientUnits="userSpaceOnUse">
+                                <stop style="stop-color:#ff00ff;" offset="0" id="stop876" />
+                                <stop style="stop-color:#ff0000;" offset="1" id="stop878" />
+                            </linearGradient>
+                        </defs>
+                        <path
+                            d="m 40,120.00016 239.99984,-3.2e-4 c 0,0 24.99263,0.79932 25.00016,35.00016 0.008,34.20084 -25.00016,35 -25.00016,35 h -239.99984 c 0,-0.0205 -25,4.01348 -25,38.5 0,34.48652 25,38.5 25,38.5 h 215 c 0,0 20,-0.99604 20,-25 0,-24.00396 -20,-25 -20,-25 h -190 c 0,0 -20,1.71033 -20,25 0,24.00396 20,25 20,25 h 168.57143" />
+                    </svg>
+                    <div class="form">
+                        <label for="username">用户名</label>
+                        <input type="username" id="username" name="username">
+                        <label for="password">密码</label>
+                        <input type="password" id="password" name="password">
+                        <input type="submit" id="submit" value="登陆">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+  
+   
+
+    <div style="display: none"><a href="http://www.dowebok.com/">dowebok</a></div>
+</body>
+<script>
+    //-:登录功能
+    //1.给登录按钮设置一个点击事件.
+    $(function () {
+        $('#submit').on('click', function (e) {
+           
+            //去掉默认的提交事件
+            e.preventDefault();
+            //获取密码和用户名
+            let username = $('#username').val().trim()//账号
+            //把用户输入的密码的用加盐的方式加密后，重新赋值给输入框
+         $( '#password').val(md5($('#password').val(). trim(), 'alice'))
+         
+        
+            let password= $('#password').val().trim()//密码
+            //3.发送ajax请求，获取返回的数据
+            $.ajax({   
+                type: 'post',
+                url: 'http://127.0.0.1:8999/login',
+                data: {
+                    username,
+                    password
+                },
+                success: function (backData) {
+                    if (backData.code == 200) {
+                        alert('登陆成功');
+                        
+             //4.如果成功，就跳转到首页
+                        window.location.href = './Herolist.html';
+                    } else {
+
+                        alert(backData.msg);
+                    }
+                }
+
+            })
+        })
+    })
+
+
+
+
+
+</script>
+
+</html>

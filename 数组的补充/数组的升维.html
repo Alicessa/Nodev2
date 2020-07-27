@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    /*数组升维:把-维数组变成二维数组*/
+    //需求:
+    // 将下列数组arr, 根据类别type升为二维数组
+    vararr = [
+        { type: '电子产品', name: ' iPhone', price: 8888 },
+        { type: '家具', name: '桌子', price: 100 },
+        { type: '食品', name: '瓜子', price: 10 },
+        { type: '家具', name: '椅子', price: 380 }]
+    
+      
+        var obj = {};//检测type有没有重复的
+var arrNew = []; //升级后的二维数组
+//1.要把type给去重，就是找出这里面所有的产品类型出来. 
+//遍历这个arr-维数组
+
+arr.forEach(v=>{
+    if (obj[v.type] == undefined) { //第 一次出现这个产品类型
+        obj[v.type] = 1;
+        //把当前遍历出来的这个数据存进arrNew中
+        arrNew.push({
+            type: v.type,
+            data: [v]
+        });
+    } else { //说明这个产品的类型不是第一次出现.
+        //判断当前这个v是属于arrNew中的哪一类产品。然后加进这-类产品的da
+        arrNew.forEach((v2, j) => {
+            if (v.type == v2.type) {
+                arrNew[j].data.push(v);
+            }
+        });
+    }
+})
+
+    console.log(arrNew);
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</html>

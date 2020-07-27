@@ -1,0 +1,34 @@
+var express = require(" express" );
+var app = express();
+
+
+
+//中间件,如果当前的中间件功能没有结束请求-响应周期，则必须调用next ()将控制权传递给下一个中间件功能。否则，该请求将被挂起。
+//所谓的中间件就是服务器开启之后和路由响应之前，执行的一个函数
+//这个函数是可以操作req,res的.
+//next()函数是让你去执行下一个中间件的.
+
+
+
+
+//中间件
+app. use((req, res, next) => {
+console. log("LOGGED1");
+next();
+});
+app. use((req, res, next) => {
+console. log("LOGGED2");
+req.requestTime = Date.now();//获取当前系统时间,赋值给req的一个属性
+res.sb='随便'
+next();
+});
+
+//路由
+app.get("/sb", function (req, res) {
+res.send("Hello World!");
+console.log(req.requestTime)
+res.send(res.sb)
+});
+app. listen(4399, () => {
+console.log("服务器开启成功了...");
+});

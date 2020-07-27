@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英雄列表</title>
+  <script src="./dist/js/jquery.js"></script>
+    <link rel="stylesheet" href="./dist/css/bootstrap.css">
+    <link rel="stylesheet" href="./dist/css/style2.css">
+
+   
+    <script src="./dist/js/bootstrap.js"></script>
+ <!-- $ npm install art-template --save -->
+ <script src="./dist/js/template-web.js"></script>
+ 
+    
+</head>
+<style>
+  
+
+</style>
+<body>
+
+
+   
+
+    <table class="table table-bordered table-hover">
+
+
+
+        <thead>
+            <tr>
+                <th class="yh">用户名</th>
+
+              
+
+
+                <th>武器</th>
+
+
+
+
+                <th>头像</th>
+
+                <th>操作<p class="gr2">添加</p>
+                  <input type="text" placeholder="查询英雄" id="cx" name="search"/><p class="gr2">提交</p>
+                </th>
+                
+            </tr>
+              <tbody>
+
+              </tbody>
+
+        </thead>
+
+
+        
+    </table>
+
+</body>
+
+
+<!-- 准备一个模板 -->
+<script id="herolist_temp" type="text/html">
+{{each data v}}
+<tr>
+<th><h4 class="name">{{v.name}}</h4></th>
+       <th ><span class="wq">{{v.skill}}</span></th>
+    <th><img src="{{v.icon}}"></th>
+    <th class="cz"><a href="/Heroinfo?id={{v.id}}" ><p class="gr">查看<p/></a>
+<a href="/deleHero?id={{v.id}}" ><p class="re">删除 <p/></a>
+    <a href="/updaHero?id={{v.id}}" ><p class="or">修改 <p/></a></th>
+    {{/each}}
+</tr>
+</script>
+
+<script>
+$(function(){
+    $.ajax({
+        type:'get',
+        url:'http://127.0.0.1:7878/Herolist',
+        success:function(backData){
+            if(backData.code=200){
+              
+                  console.log(backData)
+            var resHtml=template('herolist_temp',backData);
+            $('tbody').html(resHtml);
+            }
+          
+        }
+    })
+})
+
+
+</script>
+
+</html>

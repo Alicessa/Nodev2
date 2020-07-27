@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    1.浏览器页面上使用ajax发请求，当前页面地址和ajax请求的地址不同源，才有跨域限制.
+2.是script标签的src属性发的请求，img的src属性发的请求
+link标签的href发的请求，都是没有跨域限制
+
+    
+</body>
+script标签请求回来的东西，都会以js执行
+<!-- //请求我们写好这个app的接口 -->
+<scrip src="http://127.0.0.1:6666/?callback=fn2"> 
+<!-- //传入函数 -->
+</script>
+<script>
+    function fn(){
+        console.log('执行这个函数')
+    }
+
+    function fn2(backData){
+        console.log('执行这个函数')
+        //那这个函数的形参，就是访问的后端接口传递过来的数据
+
+        console.log(backData)
+    }
+</script>
+</html>

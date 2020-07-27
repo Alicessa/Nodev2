@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "name": "Ugo",
+        "skill": "蔷薇之剑",
+        "icon": "http://127.0.0.1:7878/8a28e7b917123db9d3e8635dacc2827d",
+        "isDelete": false
+    },
+    {
+        "id": 2,
+        "name": "Krito",
+        "skill": "暗夜之剑",
+        "icon": "ebb1860895cdb8ca85b67ef81dbefe66",
+        "isDelete": false
+    },
+    {
+        "id": 3,
+        "name": "Alice",
+        "skill": "金桂之剑",
+        "icon": "http://127.0.0.1:7878/b41668cd9f9a17114b77c42057faa72f",
+        "isDelete": false
+    },
+    {
+        "id": 4,
+        "name": "Alobug",
+        "skill": "管理员",
+        "icon": "http://127.0.0.1:7878/7276939c89940f8f23b79aa7d0893d19",
+        "isDelete": false
+    }
+]

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <title>登陆页面</title>
+    <link rel="stylesheet" href="./dist/css/style.css">
+    
+    <script src="./dist/js/jquery.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/blueimp-md5/2.16.0/js/md5.js"></script>
+</head>
+
+<body>
+    <form action="#" method="post">
+
+        <div class="dowebok">
+            <div class="container">
+                <div class="left">
+                    <div class="login">注册</div>
+                    <div class="eula">欢迎光临，请输入您的用户名和密码以登录！</div>
+                </div>
+                <div class="right">
+                    <svg viewBox="0 0 320 300">
+                        <defs>
+                            <linearGradient inkscape:collect="always" id="linearGradient" x1="13" y1="193.49992"
+                                x2="307" y2="193.49992" gradientUnits="userSpaceOnUse">
+                                <stop style="stop-color:#ff00ff;" offset="0" id="stop876" />
+                                <stop style="stop-color:#ff0000;" offset="1" id="stop878" />
+                            </linearGradient>
+                        </defs>
+                        <path
+                            d="m 40,120.00016 239.99984,-3.2e-4 c 0,0 24.99263,0.79932 25.00016,35.00016 0.008,34.20084 -25.00016,35 -25.00016,35 h -239.99984 c 0,-0.0205 -25,4.01348 -25,38.5 0,34.48652 25,38.5 25,38.5 h 215 c 0,0 20,-0.99604 20,-25 0,-24.00396 -20,-25 -20,-25 h -190 c 0,0 -20,1.71033 -20,25 0,24.00396 20,25 20,25 h 168.57143" />
+                    </svg>
+                    <div class="form">
+                        <label for="username">用户名</label>
+                        <input type="username" id="username" name="username">
+                        <label for="password">密码</label>
+                        <input type="password" id="password" name="password">
+                        <label for="capt">验证码</label>
+                        <input type="text" id="capt" name="capt">
+
+                        <img src="http://127.0.0.1:8999/captcha" class="capnew" />
+                        <input type="submit" id="submit" value="登陆">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+
+
+    <div style="display: none"><a href="http://www.dowebok.com/">dowebok</a></div>
+</body>
+<script>
+    //-:登录功能
+    //1.给登录按钮设置一个点击事件.
+    $(function () {
+
+        $('.capnew').on('click', function () {
+           
+            //修改img的src的属性
+            $(this).attr('src', 'http://127.0.0.1:8999/captcha?sb=' + Math.random())
+        })
+        //注意:img标签自带缓存功能，如果第二次请求的地址和第一次请求的地址是样的，
+        //那他就不会去真正的发请求，而是去缓存中拿数据I
+        //解决问题的办法:让每次点击设置的src属性的值不一样不就完了吗?
+
+        $('#submit').on('click', function (e) {
+            e.preventDefault();
+            //获取密码和用户名
+            let username = $('#username').val().trim()//账号
+             $('#password').val(md5($('#password').val().trim(),'alice'));
+            let code = $("#capt").val().trim();
+            
+            
+            // 服务保存时会将密文保存到缓存
+           
+            let password=$('#password').val().trim();
+          
+
+            $.ajax({
+                type: 'post',
+                url: 'http://127.0.0.1:8999/register',
+                data: {
+                    username:username,
+                    password,
+                    code
+                },
+
+                success: function (backData) {
+                  
+                    if (backData.code ==200) {
+                     alert(backData.msg)
+
+                        //4.如果成功，就跳转到首页
+                        window.location.href = './login.html';
+                    } else {
+
+                        alert(backData.msg);
+                    }
+                }
+
+            })
+        })
+    })
+
+
+
+
+
+</script>
+
+</html>

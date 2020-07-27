@@ -1,0 +1,90 @@
+img{
+ width: 100%;
+ height: 100%;
+    overflow: hidden;
+  
+  
+}
+.imgup{
+height: 80px;
+width: 80px;
+border-radius: 100%;
+}
+.left a{
+    float: right;
+    margin-right: 15px;
+}
+#kingicon{
+       width: 100px;
+    height: 100px;
+    border-radius: 100%; 
+     position: relative;
+    margin-top: 15px;
+    left: 10%;
+    overflow: hidden;
+}
+.or,.re,.gr{
+  
+    text-align: center;
+  line-height:30px;
+  border-radius: 5px;  
+  width: 70px;
+    height: 30px; color: black;
+    border-radius: 5px;
+    margin-top: 50px;
+
+}
+.gr2{
+    text-align: center;
+  line-height:30px;
+  border-radius: 5px;  
+  width: 70px;
+    height: 30px; color: black;
+    border-radius: 5px;
+    float: right;
+    margin-left: 50px;
+
+}
+
+.or{
+    background-color: orangered;
+   
+}
+.re{
+    background-color: red;
+}
+.gr,.gr2{
+    background-color: yellowgreen;
+}
+.yh{
+    color: saddlebrown;
+   
+    font-size: 20px;
+}
+.name{
+    line-height: 100px;
+}
+.cz p{
+display: inline;
+float: left;
+margin-right: 15px;
+
+}
+.wq{
+   color:rgba(0, 162, 255, 0.678);
+   line-height: 100px;
+   
+   font-weight:800;
+   font-size: 14px;
+}
+.gr2:nth-child(2){
+    margin-left: 100px;
+    float: right;
+}
+#cx{
+    position: relative;
+    float: right;
+    line-height: 25px;
+    border-radius: 6px;
+    background-color: sandybrown;
+}

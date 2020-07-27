@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英雄列表</title>
+    <script src="./dist/js/jquery.js"></script>
+    <link rel="stylesheet" href="./dist/css/bootstrap.css">
+    <link rel="stylesheet" href="./dist/css/style2.css">
+
+
+    <script src="./dist/js/bootstrap.js"></script>
+    <!-- $ npm install art-template --save -->
+    <script src="./dist/js/template-web.js"></script>
+
+    <!-- 发送是否登录接口请求 -->
+    <script>
+       $ (function () {
+           
+            $.ajax({
+                type: 'get',
+                url: 'http://127.0.0.1:8999/isLogin',
+                success: function (backData) {
+                    if (backData == '') {
+                        alert('请登录')
+                        window.location.href = './login.html';
+
+                    }
+
+                }
+            })
+
+        })
+
+    </script>
+
+</head>
+<style>
+    #kingicon img {
+        position: relative;
+        top: 0px;
+    }
+</style>
+
+<body>
+
+
+
+
+    <table class="table table-bordered table-hover">
+
+
+
+        <thead>
+            <tr>
+                <th class="yh">英雄</th>
+
+
+
+
+                <th>头像</th>
+
+
+
+
+                <th>英雄被动技能</th>
+                <th>英雄1技能</th>
+                <th>英雄2技能</th>
+                <th>英雄3技能</th>
+
+                <th>操作<p class="gr2"><a href="./addHero.html" >添加</a></p><p class="gr2"><a href="http://127.0.0.1:8999/logout">退出</a></p>
+                    <input type="text" placeholder="查询英雄" id="cx" name="search" />
+                    <p class="gr2 btnc">查询</p>
+                </th>
+
+            </tr>
+        <tbody>
+
+        </tbody>
+
+        </thead>
+
+
+
+    </table>
+
+</body>
+
+
+<!-- 准备一个模板 -->
+<script id="herolist_temp" type="text/html">
+{{each heros v}}
+<tr>
+<th><h4 class="name">{{v.Kingname}}</h4></th>
+      
+    <th><div id="kingicon"><img src="{{v.Kingicon}}"></div></th>
+    <th ><span class="wq">{{v.Kingskill1}}</span></th>
+    <th ><span class="wq">{{v.Kingskill2}}</span></th>
+    <th ><span class="wq">{{v.Kingskill3}}</span></th>
+    <th ><span class="wq">{{v.Kingskill4}}</span></th>
+   <!--  class="cz"><a onclick="window.location.href='./Heroinfo.html?id={{v.id}}'"= ><p class="gr">查看<p/></a> -->
+<th class="left"> <a data-id="{{v.id}}" class="dele"><p class="re">删除 <p/></a>
+    
+  <a  onclick="window.location.href='./updaHero.html?id={{v.id}}'"><p class="or">修改 <p/></a></th>
+    {{/each}}
+</tr>
+</script>
+
+<script>
+    $(function () {
+        function getData() {
+            $.ajax({
+                type: 'get',
+                url: 'http://127.0.0.1:8999/Herolist',
+                success: function (backData) {
+                    if (backData.code = 200) {
+                        // if (backData.user == undefined) {
+                        //     alert('请登录')
+                        //     window.location.href = './login.html';
+                        // }
+
+                        var resHtml = template('herolist_temp', backData);
+                        $('tbody').html(resHtml);
+
+
+
+                    }
+
+                }
+            })
+        }
+        getData()
+        $('.btnc').on('click', function (e) {
+            //2.去掉默认的提交行为
+            e.preventDefault();
+            let search = $('#cx').val().trim();
+            $.ajax({
+                type: 'get',
+                url: 'http://127.0.0.1:8999/Herolist',
+                data: {
+                    search: search
+                },
+                success: function (backData) {
+                    if (backData.heros.length == 0) {
+                        $('tbody').html('没有数据');
+                        return;
+                    }
+
+                    if (backData.code = 200) {
+
+                        console.log(backData)
+                        var resHtml = template('herolist_temp', backData);
+                        $('tbody').html(resHtml);
+                    }
+
+                }
+            })
+        })
+
+
+
+        //三:删除:给所有的删除按钮设置点击事件(委托注册)
+        //1.注册点击事件.
+        $('tbody').on('click', '.dele', function () {
+            //2.获取当前点击的这个删除按钮自定义属性保存的英雄id
+            if (confirm('你确定要删除吗')) {
+                var id = $(this).attr('data-id');
+                //console. log(id);
+                //3.发送ajax请求，把id传过去
+                $.ajax({
+                    type: 'post',
+                    url: 'http://127.0.0.1:8999/deleHero',
+                    data: { id },
+
+
+                    success: function (backData) {
+                        if (backData.code = 200) {
+                            alert('删除成功')
+                            //    删除成过刷新页面
+                            getData()
+                        }
+
+                    }
+
+                })
+            }
+        })
+    })
+
+
+</script>
+
+</html>

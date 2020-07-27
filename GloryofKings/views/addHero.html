@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英雄添加</title>
+    <script src="./dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="./dist/css/bootstrap.css">
+</head>
+<style>
+    img {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+
+
+    }
+
+    .imgup {
+        height: 80px;
+        width: 80px;
+        border-radius: 100%;
+        display: none;
+    }
+</style>
+
+<body>
+    <form action="#" method="POST" >
+  
+   
+        <div class="panel panel-info">
+              <div class="panel-heading">
+                    <h3 class="panel-title">英雄添加</h3>
+              </div>
+              
+            
+                 
+             
+                  <div class="form-group">
+                    
+                  </div>
+                
+                  
+                      
+                   英雄名<input type="text" name="Kingname" id="input" class="form-control"  title="" >
+              英雄被动技能<input type="text" name="Kingskill1"  id="input" class="form-control"  title="">
+              英雄1技能<input type="text" name="Kingskill2"  id="input" class="form-control"  title="" >
+              英雄2技能<input type="text" name="Kingskill3"  id="input" class="form-control"  title="" >
+              英雄3技能<input type="text" name="Kingskill4"  id="input" class="form-control"  title="" >
+          
+               
+              <input  type="file" name="Kingicon" id="Kingicon" />
+                </label>
+                <div class="imgup"><img src="" id="upimglan"   /></div>
+
+               <!-- <input name="upload" type="submit" value="上传" /> -->
+                  <button type="submit" class="sub btn-primary">修改</button>
+                  
+                 </form>
+</body>
+<script src="./dist/js/jquery.js"></script>
+<script>
+
+    $(function () {
+        //-:图片预览
+        $('#Kingicon').on('change', function () {
+
+            //1.获取用户选择的图片
+            var file = this.files[0];
+            //2.创建一个url
+            var url = window.URL.createObjectURL(file);
+            $('.imgup').show()
+            //3.把ur1赋值给预览用的img的src属性
+            $('#upimglan').attr('src', url)
+
+        });
+        //二:完成新增
+        //二:完成新增
+        //1.给新增按钮设置一个点击事件.
+        //2.去掉默认提交行为
+        //3.创建-个FormData对象，获取新增的英雄的信息(名字，技能,头像)
+        //form表单是dom元素，form表单中需要获取数据的标签都应该有name属性，并且name属性的值应该和接口参数一致
+        $('.sub').on('click', function (e) {
+            e.preventDefault()
+            var fd = new FormData(document.querySelector('form'))
+           
+            $.ajax({
+                type: 'post',
+
+                data: fd,
+                url: 'http://127.0.0.1:8999/addHero',
+                // data是FormData对家，那就不要忘记有2个false.
+                contentType: false,
+                processData: false,
+                data: fd,
+                success: function (backData) {
+                    console.log(backData)
+                    if (backData.code==200){
+                        
+                    alert('新增成功!');
+                    //5.新增成功了跳转到首页.
+                    
+                    window.location.href = './Herolist.html';
+
+                    }
+                }
+
+            })
+        })
+    });
+
+</script>
+
+</html>

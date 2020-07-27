@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+    <script src="./dist/js/jquery.js"></script>
+    <link rel="stylesheet" href="./dist/css/bootstrap.css">
+    <link rel="stylesheet" href="./dist/css/style2.css">
+
+
+    <script src="./dist/js/bootstrap.js"></script>
+    <!-- $ npm install art-template --save -->
+    <script src="./dist/js/template-web.js"></script>
+
+</head>
+
+<body>
+    <form action="#" method="POST">
+
+
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">用户修改</h3>
+            </div>
+
+
+
+
+            <div class="form-group">
+
+            </div>
+            <input type="hidden" id="id" />
+
+            英雄名<input type="text" name="Kingname" class="form-control" title="" id="Kingname">
+            英雄被动技能<input type="text" name="Kingskill1" class="form-control" title="" id="Kingskill1">
+            英雄1技能<input type="text" name="Kingskill2" class="form-control" title="" id="Kingskill2">
+            英雄2技能<input type="text" name="Kingskill3" class="form-control" title="" id="Kingskill3">
+            英雄3技能<input type="text" name="Kingskill4" class="form-control" title="" id="Kingskill4">
+
+
+            <input type="file" name="Kingicon" id="Kingicon" />
+            </label>
+            <div class="imgup"><img src="" id="upimglan" /></div>
+
+            <!-- <input name="upload" type="submit" value="上传" /> -->
+            <button type="submit" class="sub btn-primary">保存</button>
+
+    </form>
+
+
+    </div>
+
+    </form>
+
+
+
+</body>
+
+<script>
+    $(function () {
+        //-:图片预览
+        $('#Kingicon').on('change', function () {
+
+            //1.获取用户选择的图片
+            var file = this.files[0];
+            //2.创建一个url
+            var url = window.URL.createObjectURL(file);
+            $('.imgup').show()
+            //3.把ur1赋值给预览用的img的src属性
+            $('#upimglan').attr('src', url)
+
+        });
+        //-:编辑第一步，根据传递过来的英雄id,发送ajax请
+        //对 应的信息显示在对应的页面标签上.
+        //1.获取传递过来的英雄id
+        var id = window.location.search.split('=')[1];
+        console.log(id);
+        //2.发送ajax请求
+        $.ajax({
+            type: 'get',
+            url: 'http://127.0.0.1:8999/Heroinfo',
+            data: {
+                id
+            },
+
+            success: function (backData) {
+
+                if (backData.code == 200) {
+                    console.log(backData.data.Kingname)
+                    $('#id').val(id);
+                    $('#Kingname').val(backData.data.Kingname);
+                    $('#Kingskill1').val(backData.data.Kingskill1);
+                    $('#Kingskill2').val(backData.data.Kingskill2);
+                    $('#Kingskill3').val(backData.data.Kingskill3);
+                    $('#Kingskill4').val(backData.data.Kingskill4);
+                    $('#upimglan').attr('src', backData.data.Kingicon)
+                }
+            }
+        });
+        $('.sub').on('click', function (e) {
+            e.preventDefault()
+            var fd = new FormData(document.querySelector('form'))
+           
+            $.ajax({
+                type: 'post',
+
+                data: fd,
+                url: 'http://127.0.0.1:8999/updaHero',
+                // data是FormData对家，那就不要忘记有2个false.
+                contentType: false,
+                processData: false,
+                data: fd,
+                success: function (backData) {
+                    console.log(backData)
+                    if (backData.code==200){
+                        
+                    alert('编辑成功!');
+                    //5.新增成功了跳转到首页.
+                    
+                    window.location.href = './Herolist.html';
+
+                    }
+                }
+
+            })
+        })
+    });
+
+
+
+</script>
+
+</html>

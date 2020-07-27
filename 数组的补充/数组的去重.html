@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+
+    //数组去重:把数组中重复的项给去掉，
+    var arr = [10, 20, 30, 10, 20, 40, 50]; //去重后得到[10, 20,30,40 ,50]
+    //-:补充去重的方法1:排序后判断法.
+    var arrNew = [];
+    //排序
+    arr.sort((a, b) => {
+        return a - b;
+    });
+    console.log(arr); //[10,10,20, 20,30,40，50]
+
+    //判断
+    arr.forEach((v, i) => {
+        if (v != arr[i + 1]) {
+            arrNew.push(v);
+        }
+    });
+    console.log(arrNew);//[10, 20， 30， 40, 50]
+
+
+    //二:补充去重的方法2:使用对象法
+    //原理:是利用的对象的属性不能重名.
+    //对象的语法复 习:
+    // 取值:
+    //属性名不存在，取出的是undefined
+
+    //属性名存在，取出的肯定是对应的属性值
+
+    // 赋值:
+    //属性名不存在，就相当于是动态的添加属性
+    //属性名不存在就修改原来的值
+    var obj = {}; //检测有没有重复元素
+    var arrNewe = [];
+    //去重后存放元素的数组.
+    //遍历要去重的数组。
+    arr.forEach(v => {
+        //判断
+        if (obj[v] == undefined) {
+            arrNew.push(v); //不存在就把当前这个v存起来.
+            obj[v] = 1;//把当前这个元素作为obj对象的属性存进obj对象里.
+        }
+
+    });
+
+
+
+</script>
+
+</html>

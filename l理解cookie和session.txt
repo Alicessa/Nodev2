@@ -1,0 +1,5 @@
+session其实也是利用的cookie的技术
+cookie把键和值都存在浏览器端
+session把sessionid存在浏览器端，而真正的数据存
+放在服务器端.
+例子在GloryofKings里
